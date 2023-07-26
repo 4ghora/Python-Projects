@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import subprocess   # Subprocess modules accepts, runs and returns the output of the system commands.
 import optparse
+import re
 
 def get_arguments():
     parser = optparse.OptionParser()
@@ -19,10 +20,49 @@ def mac_changer(interface, new_mac):
     subprocess.call(["ifconfig", interface, "hw", "ether", new_mac])   
     subprocess.call(["ifconfig", interface, "up"])
 
+def get_current_mac(interface):
+    ifconfig_result = subprocess.check_output(["ifconfig", interface])
+    mac_address_search_result = re.search(r'\w\w:\w\w:\w\w:\w\w:\w\w:\w\w', ifconfig_result.decode('utf-8'))
+    if mac_address_search_result:
+        return mac_address_search_result.group(0)
+    else:
+        print("[-] Sorry No Mac Addresss Detected")
+
 (options, arguments) = get_arguments()
+
+current_mac = get_current_mac(options.interface)
+print("Current Mac = " + str(current_mac)) 
+
 mac_changer(options.interface, options.new_mac)
 
+current_mac = get_current_mac(options.interface)
+if current_mac == options.new_mac:
+    print("[+] MAC Address Successfully changed to " + current_mac)
+else:
+    print("[-] MAC Address did not get changed.")
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
 ''' OLD CODE
 
 print("[+] Changing MAC Address for " + interface + " and New Mac is " + new_mac)
