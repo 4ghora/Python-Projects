@@ -1,7 +1,7 @@
 from argparse import ArgumentParser
 from pytube import YouTube
 
-# Banner displayed when the code runs
+## Banner displayed when the code runs
 BANNER = """
 ***************************************
 **       YouTube Video Downloader     **
