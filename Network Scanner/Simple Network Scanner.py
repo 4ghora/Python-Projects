@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+
 from scapy.all import ARP, Ether, srp, ls
 
 def scan(ip):
