@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+
 from scapy.all import ARP, Ether, srp, ls
 from argparse import ArgumentParser
 def scan(ip):
